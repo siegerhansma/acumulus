@@ -1,0 +1,25 @@
+{
+    "name": "siegerhansma/acumulus-php",
+    "description": "PHP wrapper for the Acumulus API",
+    "authors": [
+        {
+            "name": "Sieger Hansma",
+            "email": "sieger@trixoict.nl"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "4.2.*",
+        "guzzlehttp/guzzle": "4.1.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.1.*",
+        "mockery/mockery": "0.9.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Siegerhansma\\AcumulusPhp": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
