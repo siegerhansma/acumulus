@@ -16,21 +16,45 @@ use GuzzleHttp;
  */
 abstract class AcumulusConnector {
 
+    /**
+     * @var string
+     */
     protected $apiUrl = 'https://api.sielsystems.nl/acumulus/stable/';
+    /**
+     * @var \GuzzleHttp\Client
+     */
     protected $client;
+    /**
+     * @var XmlBuilder
+     */
     protected $xml;
 
+    /**
+     * @var
+     */
     protected $apiCall;
+    /**
+     * @var
+     */
     protected $xmlPayload;
 
+    /**
+     * @param array $config
+     */
     function __construct(array $config)
     {
-
         $this->client = new GuzzleHttp\Client(['base_url' => $this->apiUrl]);
         $this->xml = new XmlBuilder;
         $this->config = $config;
     }
 
+    /**
+     * @param bool $returnApiCall
+     * @return array|mixed|null
+     * @throws ConfigNotAnArrayException
+     * @throws NoConfigSuppliedException
+     * @throws NoXmlPayloadSuppliedException
+     */
     public function sendRequest($returnApiCall = false)
     {
         // Some functions need to return the URL instead of send the request.
@@ -54,11 +78,14 @@ abstract class AcumulusConnector {
                 ]
             ]);
 
-
         return $this->parseResponse($request);
-
     }
 
+    /**
+     * @param $response
+     * @return array|mixed|null
+     * @throws AcumulusException
+     */
     private function parseResponse($response)
     {
         $parser = new ResponseParser($response);

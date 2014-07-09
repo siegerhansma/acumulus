@@ -3,4 +3,4 @@
 class AcumulusException extends \Exception {}
 class ConfigNotAnArrayException extends \Exception {}
 class NoConfigSuppliedException extends \Exception {}
-class NoXmlPayloadException extends \Exception {}
+class NoXmlPayloadSuppliedException extends \Exception {}

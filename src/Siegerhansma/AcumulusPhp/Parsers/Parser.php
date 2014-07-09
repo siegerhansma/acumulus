@@ -9,6 +9,10 @@
 namespace Siegerhansma\AcumulusPhp\Parsers;
 
 
+/**
+ * Class Parser
+ * @package Siegerhansma\AcumulusPhp\Parsers
+ */
 class Parser {
 
     /**

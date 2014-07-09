@@ -21,7 +21,7 @@ class Invoices extends AcumulusConnector {
 
     /**
      * Gets the next invoice number and returns it as a string
-     *  https://apidoc.sielsystems.nl/content/invoice-get-next-invoice-number
+     * @link https://apidoc.sielsystems.nl/content/invoice-get-next-invoice-number
      * @return $this
      */
     public function getNextInvoiceNumber(){

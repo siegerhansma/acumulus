@@ -11,7 +11,6 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     /** @test */
     function it_returns_a_string_when_string_is_input()
     {
-
         $mock = Mockery::mock('GuzzleHttp\Message\Response')
             ->shouldReceive('json')
             ->once()
@@ -23,20 +22,32 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals('this is a string', $parser->parse());
     }
 
-    /** @test
+    /**
+     * @test
      *
-     * @expectedException Exception
+     * @expectedException  Siegerhansma\AcumulusPhp\AcumulusException
      */
     function it_throws_an_exception_when_error_from_acumulus()
     {
-        $response = array(
-            'status' => 2
-        );
+        $response = '{
+    "errors": {
+        "count_errors": "0"
+    },
+    "warnings": {
+        "warning": {
+            "code": "502",
+            "codetag": "EMPTYG5FG",
+            "message": "Warning - No data - We tried but based on you request we could not find any available contact data."
+        },
+        "count_warnings": "1"
+    },
+    "status": "2"
+}';
 
         $mock = Mockery::mock('GuzzleHttp\Message\Response')
             ->shouldReceive('json')
             ->once()
-            ->andReturn($response)
+            ->andReturn(json_decode($response, true))
             ->getMock();
         $parser = new \Siegerhansma\AcumulusPhp\ResponseParser($mock);
         $parser->parse();
@@ -67,5 +78,53 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
 
         $this->assertInstanceOf('Siegerhansma\AcumulusPhp\Models\Contact', $parseClass);
     }
+
+    /** @test */
+    function it_should_return_an_array_of_contacts()
+    {
+        $response = file_get_contents(__DIR__ . '/stubs/contacts.txt');
+
+        $mock = Mockery::mock('GuzzleHttp\Message\Response')
+            ->shouldReceive('json')
+            ->once()
+            ->andReturn(json_decode($response, true))
+            ->getMock();
+
+        $parser = new \Siegerhansma\AcumulusPhp\ResponseParser($mock);
+        $parsedArray = $parser->parse();
+
+        $this->assertCount(3, $parsedArray);
+
+//        $this->assertContains('Siegerhansma\AcumulusPhp\Models\Contact', $parsedArray);
+    }
+
+    /** @test */
+    function it_should_return_a_single_contact()
+    {
+        $response = file_get_contents(__DIR__ . '/stubs/contact.txt');
+
+        $mock = Mockery::mock('GuzzleHttp\Message\Response')
+            ->shouldReceive('json')
+            ->once()
+            ->andReturn(json_decode($response, true))
+            ->getMock();
+
+        $parser = new \Siegerhansma\AcumulusPhp\ResponseParser($mock);
+        $parsedArray = $parser->parse();
+
+        $this->assertInstanceOf('Siegerhansma\AcumulusPhp\Models\Contact', $parsedArray);
+        $this->assertEquals("123456", $parsedArray->getContactid());
+        $this->assertEquals("joe@example.com", $parsedArray->getContactemail());
+        $this->assertEquals("Address 1", $parsedArray->getContactaddress1());
+    }
+
+    /** @test */
+    function it_should_return_null_when_there_is_no_contact()
+    {
+
+    }
+
+    
+
 }
  

@@ -4,14 +4,14 @@ namespace Siegerhansma\AcumulusPhp;
 /**
  * Class Contacts
  * Responsible for creating the body for Contacts related API calls
- * https://apidoc.sielsystems.nl/acumulus-api/contacts
+ * @link https://apidoc.sielsystems.nl/acumulus-api/contacts
  * @package Siegerhansma\AcumulusPhp
  */
 class Contacts extends AcumulusConnector{
 
     /**
      * This API-call allows you to retrieve full detailed contact information about the requested contactid.
-     * https://apidoc.sielsystems.nl/content/contact-get-contact-details
+     * @link https://apidoc.sielsystems.nl/content/contact-get-contact-details
      * @param $contact_id
      */
     public function getContactDetails($contact_id){
@@ -23,7 +23,7 @@ class Contacts extends AcumulusConnector{
 
     /**
      * Submit a contact identifier and obtain a list of invoices (if any) received from this particular contact.
-     * https://apidoc.sielsystems.nl/content/contact-list-incoming-invoices
+     * @link https://apidoc.sielsystems.nl/content/contact-list-incoming-invoices
      * @param $contact_id
      * @return $this
      */
@@ -36,7 +36,7 @@ class Contacts extends AcumulusConnector{
 
     /**
      * Submit a contact identifier and obtain a list of invoices (if any) send to this particular contact.
-     * https://apidoc.sielsystems.nl/content/contact-list-outgoing-invoices
+     * @link https://apidoc.sielsystems.nl/content/contact-list-outgoing-invoices
      * @param $contact_id
      * @return $this
      */
@@ -49,7 +49,7 @@ class Contacts extends AcumulusConnector{
 
     /**
      * This API-call allows you to query your contacts. It has a few nice features including an option to provide a term to search for and a selection count and offset to receive only a limited amount of matches.
-     * https://apidoc.sielsystems.nl/content/contacts-list-contacts
+     * @link https://apidoc.sielsystems.nl/content/contacts-list-contacts
      * @param $options
      * @return $this
      * @throws Exception

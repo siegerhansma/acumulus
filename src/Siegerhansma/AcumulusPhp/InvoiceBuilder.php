@@ -4,23 +4,45 @@ use Siegerhansma\AcumulusPhp\Models\Contact;
 use Siegerhansma\AcumulusPhp\Models\Invoice;
 use Siegerhansma\AcumulusPhp\Models\InvoiceLine;
 
+/**
+ * Class InvoiceBuilder
+ * @package Siegerhansma\AcumulusPhp
+ */
 class InvoiceBuilder {
 
+    /**
+     * @var
+     */
     protected $customer;
+    /**
+     * @var
+     */
     protected $invoiceLines;
 
 
-
+    /**
+     *
+     */
     function __construct()
     {
         $this->invoice = new Invoice;
     }
 
+    /**
+     * @param InvoiceLine $invoiceLine
+     * @return $this
+     */
     public function addLine(InvoiceLine $invoiceLine){
         $this->invoiceLines[] = $invoiceLine;
         return $this;
     }
 
+    /**
+     * @param Contact $customer
+     * @param bool $overwriteIfExists
+     * @return $this
+     * @throws \Exception
+     */
     public function setCustomer(Contact $customer, $overwriteIfExists = false){
         if(!$customer instanceof Contact)
         {
@@ -31,6 +53,11 @@ class InvoiceBuilder {
         return $this;
     }
 
+    /**
+     * @param Invoice $invoice
+     * @return $this
+     * @throws \Exception
+     */
     public function setInvoiceData(Invoice $invoice){
         if(!$invoice instanceof Invoice)
         {
@@ -41,6 +68,10 @@ class InvoiceBuilder {
         return $this;
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function build(){
 
         $customer = new \SimpleXMLElement('<customer></customer>');

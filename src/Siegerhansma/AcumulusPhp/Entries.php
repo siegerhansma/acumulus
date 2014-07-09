@@ -7,7 +7,7 @@ class Entries extends AcumulusConnector{
 
     /**
      * Supply a valid entryid and get related info. Applies to various types including invoices, expenses and balances. Depending on the type of entry some details may be of less relevance or simply presented as empty.
-     * https://apidoc.sielsystems.nl/content/entry-get-entry-details
+     * @link https://apidoc.sielsystems.nl/content/entry-get-entry-details
      * @param $entry_id
      * @return $this
      */

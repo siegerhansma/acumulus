@@ -1,28 +1,37 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sieger
- * Date: 7-7-14
- * Time: 22:33
- */
-
 namespace Siegerhansma\AcumulusPhp\Parsers;
 
 
 use Siegerhansma\AcumulusPhp\Models\Contact;
 
+/**
+ * Class ContactsParser
+ * @package Siegerhansma\AcumulusPhp\Parsers
+ */
 class ContactsParser extends Parser implements ParserInterface{
 
 
+    /**
+     * @var
+     */
     protected $contacts;
 
+    /**
+     * @param $contacts
+     */
     function __construct($contacts)
     {
         $this->contacts = $contacts;
     }
 
+    /**
+     * @return array
+     */
     public function parse(){
-        //dd($this->contacts);
+
+        if(empty($this->contacts)){
+            return null;
+        }
 
         // When filter is used, one result comes back in the form of an array
         if(array_key_exists("contactid", $this->contacts)){

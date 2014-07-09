@@ -13,26 +13,44 @@ use Siegerhansma\AcumulusPhp\Parsers\ContactsParser;
 use Siegerhansma\AcumulusPhp\Parsers\EntryParser;
 use Siegerhansma\AcumulusPhp\Parsers\InvoiceParser;
 
+/**
+ * Parses the response returned from Acumulus
+ * @package Siegerhansma\AcumulusPhp
+ */
 class ResponseParser{
 
 
+    /**
+     * @param $request
+     */
     function __construct($request)
     {
         $this->request = $request;
     }
 
-    public function parse($json = true){
+    /**
+     * Parses the response and sends it to the appropriate response class
+     * @return array|mixed|null
+     * @throws AcumulusException
+     */
+    public function parse(){
 
+
+//        echo $this->request->getBody();
+//        die;
         // Get the response body and parse it as Json
         $response = $this->request->json();
+
 
         if(!is_array($response)){
             return $response;
         }
 
         // Handle errors returned by Acumulus
-        if($response['status'] > 0){
+        if($response['status'] == 1){
             throw new AcumulusException($response['errors']['error']['message']);
+        }elseif($response['status'] > 1){
+            throw new AcumulusException($response['warnings']['warning']['message']);
         }
 
         // Get the key from the first element from the response

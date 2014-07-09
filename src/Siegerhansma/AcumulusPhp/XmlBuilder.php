@@ -9,6 +9,10 @@
 namespace Siegerhansma\AcumulusPhp;
 
 
+/**
+ * Class XmlBuilder
+ * @package Siegerhansma\AcumulusPhp
+ */
 class XmlBuilder {
 
     /**
