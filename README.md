@@ -1,7 +1,7 @@
 # Unofficial Acumulus PHP SDK
-Hey, this is still a work in progress. Please don't use this yet in production.
+Official Acumulus documentation: https://apidoc.sielsystems.nl/
 
-Official Acumulus documentation: [https://apidoc.sielsystems.nl/]
+This package uses [Guzzle](https://github.com/guzzle/guzzle) to make the cUrl requests to Acumulus. 
 
 ## Installation
 ### Via composer
@@ -22,6 +22,7 @@ All of the provider classes take a config array as parameter.
 You could put these variables in a specific config file.
 
 ## Usage
+Every class and function is fully documented in the [online documentation](http://www.trixoict.nl/acumulus/namespaces/Siegerhansma.AcumulusPhp.html).
 ### Request
 The calls in the API can be called via specific classes corresponding to the categories on the official API docs. 
 To start, create a new instance of the provider class you need.
@@ -216,7 +217,7 @@ array(3) {
 ```
 
 ### Models
-For the responses you get from Acumulus, there are several models being used. There models are integral copies of the responses and have their own getters and setters. A Contact model 
+For the responses you get from Acumulus, there are several models being used. There models are integral copies of the responses and have their own getters and setters. For a list of all the models and the methods that you can use on them, check out the API documentation [here](
 ### Adding an invoice
 By far the most difficult task this package does is adding an invoice to Acumulus. I've tried to create this as easy as possible, but the call being made is pretty complex. 
 
@@ -261,19 +262,10 @@ In the response from Acumulus you will get an array with the following fields:
 * token
 * entryid
 
-
-
-
-
-
-
-
 ## TODO
 A lot still to do, here's what:
 * Write more tests
 * Make documentation
 * Support [Picklists](https://apidoc.sielsystems.nl/acumulus-api/picklists)
 
-Again, **please don't use this in production yet!**
-
-If you have any questions or feedback, leave an issue.
+If you have any questions, feedback or if you encounter a bug, please leave an issue or a pull request.

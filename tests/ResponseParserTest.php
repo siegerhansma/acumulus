@@ -92,10 +92,7 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase
         $parser = new \Siegerhansma\AcumulusPhp\ResponseParser($mock);
         $parsedArray = $parser->parse();
 
-        file_put_contents(__DIR__ . '/stubs/bla.txt', var_dump($parsedArray));
         $this->assertCount(3, $parsedArray);
-
-//        $this->assertContains('Siegerhansma\AcumulusPhp\Models\Contact', $parsedArray);
     }
 
     /** @test */
