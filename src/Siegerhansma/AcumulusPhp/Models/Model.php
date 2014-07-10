@@ -8,7 +8,6 @@
 
 namespace Siegerhansma\AcumulusPhp\Models;
 
-
-abstract class Model {
-
-} 
+abstract class Model
+{
+}

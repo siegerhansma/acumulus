@@ -1,5 +1,7 @@
 <?php
-namespace Siegerhansma\AcumulusPhp;
+namespace Siegerhansma\AcumulusPhp\Providers;
+use Siegerhansma\AcumulusPhp\AcumulusConnector;
+use Siegerhansma\AcumulusPhp\Exceptions\NotAnArrayException;
 
 /**
  * Class Contacts
@@ -7,14 +9,15 @@ namespace Siegerhansma\AcumulusPhp;
  * @link https://apidoc.sielsystems.nl/acumulus-api/contacts
  * @package Siegerhansma\AcumulusPhp
  */
-class Contacts extends AcumulusConnector{
-
+class ContactsProvider extends AcumulusConnector
+{
     /**
      * This API-call allows you to retrieve full detailed contact information about the requested contactid.
      * @link https://apidoc.sielsystems.nl/content/contact-get-contact-details
      * @param $contact_id
      */
-    public function getContactDetails($contact_id){
+    public function getContactDetails($contact_id)
+    {
         $this->apiCall = 'contacts/contact_get.php';
         $this->xmlPayload = sprintf('<contactid>%d</contactid>', $contact_id);
 
@@ -27,7 +30,8 @@ class Contacts extends AcumulusConnector{
      * @param $contact_id
      * @return $this
      */
-    public function getIncomingInvoices($contact_id){
+    public function getIncomingInvoices($contact_id)
+    {
         $this->apiCall = 'contacts/contact_invoices_incoming.php';
         $this->xmlPayload = sprintf('<contactid>%d</contactid>', $contact_id);
 
@@ -40,7 +44,8 @@ class Contacts extends AcumulusConnector{
      * @param $contact_id
      * @return $this
      */
-    public function getOutgoingInvoices($contact_id){
+    public function getOutgoingInvoices($contact_id)
+    {
         $this->apiCall = 'contacts/contact_invoices_outgoing.php';
         $this->xmlPayload = sprintf('<contactid>%d</contactid>', $contact_id);
 
@@ -54,29 +59,30 @@ class Contacts extends AcumulusConnector{
      * @return $this
      * @throws Exception
      */
-    public function getAvailableContacts($options){
-        if(!is_array($options))
-        {
-            throw new Exception("Options should be an array");
+    public function getAvailableContacts($options)
+    {
+        if (!is_array($options)) {
+            throw new NotAnArrayException("Options should be an array");
         }
 
         $this->xmlPayload = null;
 
-        if(isset($options['filter'])){
+        if (isset($options['filter'])) {
             $this->xmlPayload .= sprintf('<filter>%s</filter>', $options['filter']);
         }
-        if(isset($options['offset'])){
+        if (isset($options['offset'])) {
             $this->xmlPayload .= sprintf('<offset>%d</offset>', $options['offset']);
         }
-        if(isset($options['rowcount'])){
+        if (isset($options['rowcount'])) {
             $this->xmlPayload .= sprintf('<rowcount>%d</rowcount>', $options['rowcount']);
         }
-        if(isset($options['contacttype'])){
+        if (isset($options['contacttype'])) {
             $this->xmlPayload .= sprintf('<contacttype>%d</contacttype>', $options['contacttype']);
         }
 
         $this->apiCall = 'contacts/contacts_list.php';
+
         return $this;
 
     }
-} 
+}

@@ -9,13 +9,14 @@
 namespace Siegerhansma\AcumulusPhp;
 
 use GuzzleHttp;
-
+use Siegerhansma\AcumulusPhp\Exceptions\NoConfigSuppliedException;
+use Siegerhansma\AcumulusPhp\Exceptions\NoXmlPayloadSuppliedException;
 
 /**
  * @property GuzzleHttp\Client client
  */
-abstract class AcumulusConnector {
-
+abstract class AcumulusConnector
+{
     /**
      * @var string
      */
@@ -41,7 +42,7 @@ abstract class AcumulusConnector {
     /**
      * @param array $config
      */
-    function __construct(array $config)
+    public function __construct(array $config)
     {
         $this->client = new GuzzleHttp\Client(['base_url' => $this->apiUrl]);
         $this->xml = new XmlBuilder;
@@ -49,7 +50,7 @@ abstract class AcumulusConnector {
     }
 
     /**
-     * @param bool $returnApiCall
+     * @param  bool                          $returnApiCall
      * @return array|mixed|null
      * @throws ConfigNotAnArrayException
      * @throws NoConfigSuppliedException
@@ -58,15 +59,15 @@ abstract class AcumulusConnector {
     public function sendRequest($returnApiCall = false)
     {
         // Some functions need to return the URL instead of send the request.
-        if(preg_match('/invoice_get_pdf/', $this->apiCall)){
+        if (preg_match('/invoice_get_pdf/', $this->apiCall)) {
             return $this->apiUrl . $this->apiCall;
         }
 
-        if(empty($this->config)){
+        if (empty($this->config)) {
             throw new NoConfigSuppliedException("There is no config supplied.");
         }
 
-        if(empty($this->xmlPayload) and !is_null($this->xmlPayload)){
+        if (empty($this->xmlPayload) and !is_null($this->xmlPayload)) {
             throw new NoXmlPayloadSuppliedException("There is no payload.");
         }
 
@@ -89,6 +90,7 @@ abstract class AcumulusConnector {
     private function parseResponse($response)
     {
         $parser = new ResponseParser($response);
+
         return $parser->parse();
     }
 }

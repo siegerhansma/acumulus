@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Siegerhansma\AcumulusPhp\Models;
 
-
-class InvoiceLine {
-
+class InvoiceLine
+{
 protected $itemnumber;
 protected $product;
 protected $unitprice;
@@ -13,7 +11,8 @@ protected $vatrate;
 protected $quantity;
 protected $costprice;
 
-    public function getInvoiceLine(){
+    public function getInvoiceLine()
+    {
         return $this;
     }
 
@@ -31,6 +30,7 @@ protected $costprice;
     public function setCostprice($costprice)
     {
         $this->costprice = $costprice;
+
         return $this;
     }
 
@@ -48,6 +48,7 @@ protected $costprice;
     public function setItemnumber($itemnumber)
     {
         $this->itemnumber = $itemnumber;
+
         return $this;
     }
 
@@ -65,6 +66,7 @@ protected $costprice;
     public function setProduct($product)
     {
         $this->product = $product;
+
         return $this;
     }
 
@@ -82,6 +84,7 @@ protected $costprice;
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+
         return $this;
     }
 
@@ -99,6 +102,7 @@ protected $costprice;
     public function setUnitprice($unitprice)
     {
         $this->unitprice = $unitprice;
+
         return $this;
     }
 
@@ -116,8 +120,8 @@ protected $costprice;
     public function setVatrate($vatrate)
     {
         $this->vatrate = $vatrate;
+
         return $this;
     }
 
-
-} 
+}

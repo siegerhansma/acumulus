@@ -1,5 +1,6 @@
 <?php namespace Siegerhansma\AcumulusPhp;
 
+use Siegerhansma\AcumulusPhp\Exceptions\ValidationErrorException;
 use Siegerhansma\AcumulusPhp\Models\Contact;
 use Siegerhansma\AcumulusPhp\Models\Invoice;
 use Siegerhansma\AcumulusPhp\Models\InvoiceLine;
@@ -8,8 +9,8 @@ use Siegerhansma\AcumulusPhp\Models\InvoiceLine;
  * Class InvoiceBuilder
  * @package Siegerhansma\AcumulusPhp
  */
-class InvoiceBuilder {
-
+class InvoiceBuilder
+{
     /**
      * @var
      */
@@ -18,53 +19,58 @@ class InvoiceBuilder {
      * @var
      */
     protected $invoiceLines;
-
+    protected $overwriteCustomer;
 
     /**
      *
      */
-    function __construct()
+    public function __construct()
     {
         $this->invoice = new Invoice;
     }
 
     /**
-     * @param InvoiceLine $invoiceLine
+     * @param  InvoiceLine $invoiceLine
      * @return $this
      */
-    public function addLine(InvoiceLine $invoiceLine){
+    public function addLine(InvoiceLine $invoiceLine)
+    {
         $this->invoiceLines[] = $invoiceLine;
+
         return $this;
     }
 
     /**
-     * @param Contact $customer
-     * @param bool $overwriteIfExists
+     * @param  Contact    $customer
+     * @param  bool       $overwriteIfExists
      * @return $this
      * @throws \Exception
      */
-    public function setCustomer(Contact $customer, $overwriteIfExists = false){
-        if(!$customer instanceof Contact)
-        {
-            throw new \Exception("Customer should be a contact model");
+    public function setCustomer(Contact $customer, $overwriteIfExists = false)
+    {
+        if (!$customer instanceof Contact) {
+            throw new ValidationErrorException("Customer should be a contact model");
         }
 
         $this->customer = $customer;
+        $this->overwriteCustomer = $overwriteIfExists;
+
         return $this;
     }
 
     /**
-     * @param Invoice $invoice
+     * @param  Invoice    $invoice
      * @return $this
      * @throws \Exception
      */
-    public function setInvoiceData(Invoice $invoice){
-        if(!$invoice instanceof Invoice)
-        {
-            throw new \Exception("Invoice should be an invoice model");
+    public function setInvoiceData(Invoice $invoice)
+    {
+        if (!$invoice instanceof Invoice) {
+            throw new ValidationErrorException("Invoice should be an invoice model");
         }
 
         $this->invoice = $invoice;
+
         return $this;
     }
 
@@ -72,8 +78,8 @@ class InvoiceBuilder {
      * @return string
      * @throws \Exception
      */
-    public function build(){
-
+    public function build()
+    {
         $customer = new \SimpleXMLElement('<customer></customer>');
 
         $customer->addChild('type', $this->customer->getContacttypeid());;
@@ -84,7 +90,6 @@ class InvoiceBuilder {
         $customer->addChild('address1', $this->customer->getContactaddress1());
         $customer->addChild('address2', $this->customer->getContactaddress2());
         $customer->addChild('postalcode', $this->customer->getContactpostalcode());
-        //$customer->addChild('locationcode', $this->customer->get);
         $customer->addChild('countrycode', $this->customer->getContactcountrycode());
         $customer->addChild('vatnumber', $this->customer->getContactvatnumber());
         $customer->addChild('telephone', $this->customer->getContacttelephone());
@@ -105,10 +110,10 @@ class InvoiceBuilder {
         $invoice->addChild('description', $this->invoice->getDescription());
         $invoice->addChild('template', $this->invoice->getConcept());
 
-        if(count($this->invoiceLines) == 0){
-            throw new \Exception("You need to have invoicelines for your invoice");
+        if (count($this->invoiceLines) == 0) {
+            throw new ValidationErrorException("You need to have invoicelines for your invoice");
         }
-        foreach($this->invoiceLines as $invoiceLine){
+        foreach ($this->invoiceLines as $invoiceLine) {
             $line = $invoice->addChild('line');
             $line->addChild('itemnumber', $invoiceLine->getItemnumber());
             $line->addChild('product', $invoiceLine->getProduct());
@@ -117,7 +122,7 @@ class InvoiceBuilder {
             $line->addChild('quantity', $invoiceLine->getQuantity());
             $line->addChild('costprice', $invoiceLine->getCostprice());
         }
-        if(!is_null($this->invoice->getEmailto())){
+        if (!is_null($this->invoice->getEmailto())) {
             $emailaspdf = $invoice->addChild('emailaspdf');
             $emailaspdf->addChild('emailto', $this->invoice->getEmailto());
             $emailaspdf->addChild('emailbcc', $this->invoice->getEmailbcc());
@@ -131,15 +136,9 @@ class InvoiceBuilder {
 
         // XML output starts with an xml version declaration, this cuts that off.
         // Pretty hacky, but it works.
+        // TODO: Think of something a better solution
         return substr($xml, 21);
-
-
 
     }
 
-
-
-
-
-
-} 
+}

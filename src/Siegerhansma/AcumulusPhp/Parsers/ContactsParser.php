@@ -1,16 +1,14 @@
 <?php
 namespace Siegerhansma\AcumulusPhp\Parsers;
 
-
 use Siegerhansma\AcumulusPhp\Models\Contact;
 
 /**
  * Class ContactsParser
  * @package Siegerhansma\AcumulusPhp\Parsers
  */
-class ContactsParser extends Parser implements ParserInterface{
-
-
+class ContactsParser extends Parser implements ParserInterface
+{
     /**
      * @var
      */
@@ -19,7 +17,7 @@ class ContactsParser extends Parser implements ParserInterface{
     /**
      * @param $contacts
      */
-    function __construct($contacts)
+    public function __construct($contacts)
     {
         $this->contacts = $contacts;
     }
@@ -27,18 +25,18 @@ class ContactsParser extends Parser implements ParserInterface{
     /**
      * @return array
      */
-    public function parse(){
-
-        if(empty($this->contacts)){
+    public function parse()
+    {
+        if (empty($this->contacts)) {
             return null;
         }
 
         // When filter is used, one result comes back in the form of an array
-        if(array_key_exists("contactid", $this->contacts)){
+        if (array_key_exists("contactid", $this->contacts)) {
             return $this->parseContact($this->contacts);
         }
 
-        foreach($this->contacts as $contact){
+        foreach ($this->contacts as $contact) {
             $models[] = $this->parseContact($contact);
         }
 
@@ -65,6 +63,5 @@ class ContactsParser extends Parser implements ParserInterface{
         return $this->buildModel($contact, $model);
 
     }
-
 
 }

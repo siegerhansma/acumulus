@@ -7,14 +7,14 @@
  */
 
 namespace Siegerhansma\AcumulusPhp;
-
+use Siegerhansma\AcumulusPhp\Exceptions\NotAnArrayException;
 
 /**
  * Class XmlBuilder
  * @package Siegerhansma\AcumulusPhp
  */
-class XmlBuilder {
-
+class XmlBuilder
+{
     /**
      * Builds the actual XML being sent to Acumulus
      * @param $xmlPayload
@@ -25,7 +25,7 @@ class XmlBuilder {
     public function buildXML($xmlPayload, $config)
     {
         if (!is_array($config)) {
-            throw new ConfigNotAnArrayException("Config should be an array");
+            throw new NotAnArrayException("Config should be an array");
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>';

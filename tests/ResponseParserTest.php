@@ -1,15 +1,14 @@
 <?php
 
-
-class ResponseParserTest extends PHPUnit_Framework_TestCase {
-
-    public function tearDown(){
+class ResponseParserTest extends PHPUnit_Framework_TestCase
+{
+    public function tearDown()
+    {
         Mockery::close();
     }
 
-
     /** @test */
-    function it_returns_a_string_when_string_is_input()
+    public function it_returns_a_string_when_string_is_input()
     {
         $mock = Mockery::mock('GuzzleHttp\Message\Response')
             ->shouldReceive('json')
@@ -25,9 +24,9 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     /**
      * @test
      *
-     * @expectedException  Siegerhansma\AcumulusPhp\AcumulusException
+     * @expectedException  Siegerhansma\AcumulusPhp\Exceptions\AcumulusException
      */
-    function it_throws_an_exception_when_error_from_acumulus()
+    public function it_throws_an_exception_when_error_from_acumulus()
     {
         $response = '{
     "errors": {
@@ -54,7 +53,7 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     }
 
     /** @test */
-    function it_should_pick_the_right_model()
+    public function it_should_pick_the_right_model()
     {
         $response = array(
             'contacts' => array(
@@ -80,7 +79,7 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     }
 
     /** @test */
-    function it_should_return_an_array_of_contacts()
+    public function it_should_return_an_array_of_contacts()
     {
         $response = file_get_contents(__DIR__ . '/stubs/contacts.txt');
 
@@ -99,7 +98,7 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     }
 
     /** @test */
-    function it_should_return_a_single_contact()
+    public function it_should_return_a_single_contact()
     {
         $response = file_get_contents(__DIR__ . '/stubs/contact.txt');
 
@@ -119,12 +118,9 @@ class ResponseParserTest extends PHPUnit_Framework_TestCase {
     }
 
     /** @test */
-    function it_should_return_null_when_there_is_no_contact()
+    public function it_should_return_null_when_there_is_no_contact()
     {
         // TODO
     }
 
-    
-
 }
- 

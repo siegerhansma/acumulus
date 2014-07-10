@@ -1,18 +1,19 @@
 <?php
 
-
 namespace Siegerhansma\AcumulusPhp;
 
+use Siegerhansma\AcumulusPhp\Exceptions\ValidationErrorException;
 
-class Invoices extends AcumulusConnector {
-
+class Invoices extends AcumulusConnector
+{
     /**
      * Add the invoice to Acumulus. Pass the $invoiceBuilder->build() method to this function.
      *  https://apidoc.sielsystems.nl/content/invoice-add
      * @param $invoiceBuilder
      * @return $this
      */
-    public function addInvoice($invoiceBuilder){
+    public function addInvoice($invoiceBuilder)
+    {
         $this->apiCall = 'invoices/invoice_add.php';
         $this->xmlPayload = $invoiceBuilder;
 
@@ -24,7 +25,8 @@ class Invoices extends AcumulusConnector {
      * @link https://apidoc.sielsystems.nl/content/invoice-get-next-invoice-number
      * @return $this
      */
-    public function getNextInvoiceNumber(){
+    public function getNextInvoiceNumber()
+    {
         $this->apiCall = 'invoices/invoice_get_next_number.php';
         $this->xmlPayload = null;
 
@@ -37,26 +39,28 @@ class Invoices extends AcumulusConnector {
      * @param $token
      * @return $this
      */
-    public function getPdfInvoice($token){
+    public function getPdfInvoice($token)
+    {
         $this->apiCall = 'invoices/invoice_get_pdf.php?token=' . $token;
         $this->xmlPayload = null;
 
         return $this;
     }
 
-    public function getPaymentStatus($token){
+    public function getPaymentStatus($token)
+    {
         $this->apiCall = 'invoices/invoice_paymentstatus_get.php';
         $this->xmlPayload = sprintf('<token>%s</token>', $token);
-        
+
         return $this;
     }
 
-    public function setPaymentStatus($token, $paymentstatus = 1, $paymentdate){
-
+    public function setPaymentStatus($token, $paymentstatus = 1, $paymentdate)
+    {
         // Validate paymentdate before sending it off
         $datetime = \DateTime::createFromFormat("Y-m-d", $paymentdate);
-        if(!$datetime and $datetime->format('Y-m-d') !== $paymentdate){
-            throw new \Exception("Paymentdate should be in YYYY-MM-DD format");
+        if (!$datetime and $datetime->format('Y-m-d') !== $paymentdate) {
+            throw new ValidationErrorException("Paymentdate should be in YYYY-MM-DD format");
         }
 
         $this->apiCall = 'invoices/invoice_paymentstatus_set.php';
@@ -67,5 +71,4 @@ class Invoices extends AcumulusConnector {
         return $this;
     }
 
-
-} 
+}

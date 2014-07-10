@@ -8,13 +8,12 @@
 
 namespace Siegerhansma\AcumulusPhp\Parsers;
 
-
 /**
  * Class Parser
  * @package Siegerhansma\AcumulusPhp\Parsers
  */
-class Parser {
-
+class Parser
+{
     /**
      * @param $contact
      * @param $model
@@ -23,7 +22,7 @@ class Parser {
     {
         foreach ($item as $name => $value) {
 
-            if(empty($value)){
+            if (empty($value)) {
                 $value = null;
             }
 
@@ -36,4 +35,4 @@ class Parser {
         return $model;
     }
 
-} 
+}

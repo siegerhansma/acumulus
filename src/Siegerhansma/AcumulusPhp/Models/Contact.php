@@ -1,10 +1,9 @@
 <?php
 
-
 namespace Siegerhansma\AcumulusPhp\Models;
 
-
-class Contact extends Model {
+class Contact extends Model
+{
     protected $contactid;
     protected $contactname1;
     protected $contactname2;
@@ -465,6 +464,4 @@ class Contact extends Model {
         $this->contactwebsite = $contactwebsite;
     }
 
-
-
-} 
+}

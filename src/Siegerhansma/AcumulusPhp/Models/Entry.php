@@ -8,9 +8,8 @@
 
 namespace Siegerhansma\AcumulusPhp\Models;
 
-
-class Entry extends Model{
-
+class Entry extends Model
+{
 protected $token;
 protected $entryid;
 protected $entrydate;
@@ -419,4 +418,4 @@ protected $paymentstatus;
         $this->vatreversecharge = $vatreversecharge;
     }
 
-} 
+}

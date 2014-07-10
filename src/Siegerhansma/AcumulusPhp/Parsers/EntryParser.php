@@ -1,19 +1,17 @@
 <?php namespace Siegerhansma\AcumulusPhp\Parsers;
 
-
 use Siegerhansma\AcumulusPhp\Models\Entry;
 
 /**
  * Class EntryParser
  * @package Siegerhansma\AcumulusPhp\Parsers
  */
-class EntryParser extends Parser implements ParserInterface{
-
-
+class EntryParser extends Parser implements ParserInterface
+{
     /**
      * @param $entry
      */
-    function __construct($entry)
+    public function __construct($entry)
     {
         $this->entry = $entry;
     }
@@ -24,6 +22,7 @@ class EntryParser extends Parser implements ParserInterface{
     public function parse()
     {
         $model = new Entry;
+
        return $this->buildModel($this->entry, $model);
     }
 }

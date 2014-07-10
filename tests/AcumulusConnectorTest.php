@@ -1,17 +1,17 @@
 <?php
 
-
-class AcumulusConnectorTest extends PHPUnit_Framework_TestCase {
-
-    public function tearDown(){
+class AcumulusConnectorTest extends PHPUnit_Framework_TestCase
+{
+    public function tearDown()
+    {
         Mockery::close();
     }
 
     /**
      * @test
-     * @expectedException  Siegerhansma\AcumulusPhp\AcumulusException
+     * @expectedException  Siegerhansma\AcumulusPhp\Exceptions\AcumulusException
      */
-    function it_should_fail_when_credentials_are_wrong()
+    public function it_should_fail_when_credentials_are_wrong()
     {
         $config = [
             'contractcode' => 123456,
@@ -19,24 +19,25 @@ class AcumulusConnectorTest extends PHPUnit_Framework_TestCase {
             'password' => 'xxxxxxxxxxxxxxxxxxxxxx'
         ];
 
-        $contact = new \Siegerhansma\AcumulusPhp\Contacts($config);
+        $contact = new \Siegerhansma\AcumulusPhp\Providers\ContactsProvider($config);
         $contact->getAvailableContacts([])->sendRequest();
     }
 
     /** @test
-     *  @expectedException Siegerhansma\AcumulusPhp\NoConfigSuppliedException
+     *  @expectedException Siegerhansma\AcumulusPhp\Exceptions\NoConfigSuppliedException
      */
-    function it_should_fail_when_there_is_no_config()
+    public function it_should_fail_when_there_is_no_config()
     {
-        $contact = new \Siegerhansma\AcumulusPhp\Contacts([]);
+        $contact = new \Siegerhansma\AcumulusPhp\Providers\ContactsProvider([]);
         $contact->getAvailableContacts([])->sendRequest();
     }
 
     /**
      * @test
-     * @expectedException Siegerhansma\AcumulusPhp\NoXmlPayloadSuppliedException
+     * @expectedException Siegerhansma\AcumulusPhp\Exceptions\NoXmlPayloadSuppliedException
      */
-    function it_should_fail_when_there_is_no_payload(){
+    public function it_should_fail_when_there_is_no_payload()
+    {
         $config = [
             'contractcode' => 123456,
             'username' => 'xxxxxxxxxxxxxxxxxxxx',
@@ -45,15 +46,9 @@ class AcumulusConnectorTest extends PHPUnit_Framework_TestCase {
 
         $invoice = '';
 
-        $invoices = new \Siegerhansma\AcumulusPhp\Invoices($config);
+        $invoices = new \Siegerhansma\AcumulusPhp\Providers\InvoicesProvider($config);
         $invoices->addInvoice($invoice)->sendRequest();
-
 
     }
 
-
-
-
-
 }
- 

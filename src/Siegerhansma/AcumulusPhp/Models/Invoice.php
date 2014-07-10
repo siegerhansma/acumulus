@@ -1,8 +1,7 @@
 <?php namespace Siegerhansma\AcumulusPhp\Models;
 
-
-class Invoice {
-
+class Invoice
+{
     protected $concept;
     protected $number;
     protected $vattype;
@@ -35,6 +34,7 @@ class Invoice {
     public function setAccountnumber($accountnumber)
     {
         $this->accountnumber = $accountnumber;
+
         return $this;
     }
 
@@ -52,6 +52,7 @@ class Invoice {
     public function setConcept($concept)
     {
         $this->concept = $concept;
+
         return $this;
     }
 
@@ -69,6 +70,7 @@ class Invoice {
     public function setConfirmreading($confirmreading)
     {
         $this->confirmreading = $confirmreading;
+
         return $this;
     }
 
@@ -86,6 +88,7 @@ class Invoice {
     public function setContact($contact)
     {
         $this->contact = $contact;
+
         return $this;
     }
 
@@ -103,6 +106,7 @@ class Invoice {
     public function setCostcenter($costcenter)
     {
         $this->costcenter = $costcenter;
+
         return $this;
     }
 
@@ -120,6 +124,7 @@ class Invoice {
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -137,6 +142,7 @@ class Invoice {
     public function setEmailbcc($emailbcc)
     {
         $this->emailbcc = $emailbcc;
+
         return $this;
     }
 
@@ -154,6 +160,7 @@ class Invoice {
     public function setEmailfrom($emailfrom)
     {
         $this->emailfrom = $emailfrom;
+
         return $this;
     }
 
@@ -171,6 +178,7 @@ class Invoice {
     public function setEmailto($emailto)
     {
         $this->emailto = $emailto;
+
         return $this;
     }
 
@@ -188,6 +196,7 @@ class Invoice {
     public function setIssuedate($issuedate)
     {
         $this->issuedate = $issuedate;
+
         return $this;
     }
 
@@ -205,6 +214,7 @@ class Invoice {
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -222,6 +232,7 @@ class Invoice {
     public function setNumber($number)
     {
         $this->number = $number;
+
         return $this;
     }
 
@@ -239,6 +250,7 @@ class Invoice {
     public function setPaymentdate($paymentdate)
     {
         $this->paymentdate = $paymentdate;
+
         return $this;
     }
 
@@ -256,6 +268,7 @@ class Invoice {
     public function setPaymentstatus($paymentstatus)
     {
         $this->paymentstatus = $paymentstatus;
+
         return $this;
     }
 
@@ -273,6 +286,7 @@ class Invoice {
     public function setSubject($subject)
     {
         $this->subject = $subject;
+
         return $this;
     }
 
@@ -290,6 +304,7 @@ class Invoice {
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
 
@@ -307,9 +322,8 @@ class Invoice {
     public function setVattype($vattype)
     {
         $this->vattype = $vattype;
+
         return $this;
     }
 
-
-
-} 
+}
