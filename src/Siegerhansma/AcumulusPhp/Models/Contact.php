@@ -165,6 +165,10 @@ class Contact extends Model
      */
     public function getContactemail()
     {
+        // Set an email if it's empty
+        if(is_null($this->contactemail)){
+            $this->setContactemail(uniqid() . '@' . uniqid() . '.nl');
+        }
         return $this->contactemail;
     }
 

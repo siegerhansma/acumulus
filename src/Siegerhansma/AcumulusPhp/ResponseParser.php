@@ -35,8 +35,6 @@ class ResponseParser
      */
     public function parse()
     {
-//        echo $this->request->getBody();
-//        die;
         // Get the response body and parse it as Json
         $response = $this->request->json();
 

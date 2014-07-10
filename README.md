@@ -220,7 +220,8 @@ array(3) {
 For the responses you get from Acumulus, there are several models being used. There models are integral copies of the responses and have their own getters and setters. For a list of all the models and the methods that you can use on them, check out the API documentation [here](
 ### Adding an invoice
 By far the most difficult task this package does is adding an invoice to Acumulus. I've tried to create this as easy as possible, but the call being made is pretty complex. 
-
+One thing to note is that Acumulus looks at the customer emailadress as being the unique identifier of a customer. So if a customer doesn't have an email yet, this package will automatically create a unique emailaddress for that customer to prevent creating multiple customers.
+However, before you make this call it's recommended that you make sure that the customer has an email.
 To (hopefully) make this a little bit easier for you, I made an InvoiceBuilder class. Here's an example of how to use this.
 ```
 
@@ -252,9 +253,9 @@ To (hopefully) make this a little bit easier for you, I made an InvoiceBuilder c
         ->setQuantity(3);
     $invoiceBuilder->addLine($invoiceLine);
     
-    // Pass the InvoiceBuilder into the addInvoice method on the InvoicesProvider
+    // Pass the InvoiceBuilder into the addInvoice method on the InvoicesProvider and call the build method on it
     $invoiceSender = new \Siegerhansma\AcumulusPhp\InvoicesProvider($config);
-    $response = $invoiceSender->addInvoice($invoiceBuilder)->sendRequest();
+    $response = $invoiceSender->addInvoice($invoiceBuilder->build())->sendRequest();
 ```
 
 In the response from Acumulus you will get an array with the following fields:
