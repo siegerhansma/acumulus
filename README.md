@@ -1,8 +1,7 @@
 # Unofficial Acumulus PHP SDK
 Official Acumulus documentation: https://apidoc.sielsystems.nl/
 
-This package uses [Guzzle](https://github.com/guzzle/guzzle) to make the cUrl requests to Acumulus. 
-
+This package uses [Guzzle](https://github.com/guzzle/guzzle) to make the cUrl requests to Acumulus. Because of its dependency to Guzzle, this package requires PHP >= 5.4 to function.
 ## Installation
 ### Via composer
 Add the package to your composer.json file
@@ -217,7 +216,7 @@ array(3) {
 ```
 
 ### Models
-For the responses you get from Acumulus, there are several models being used. There models are integral copies of the responses and have their own getters and setters. For a list of all the models and the methods that you can use on them, check out the API documentation [here](
+For the responses you get from Acumulus, there are several models being used. There models are integral copies of the responses and have their own getters and setters. For a list of all the models and the methods that you can use on them, check out the API documentation [here](http://trixoict.nl/acumulus/namespaces/Siegerhansma.AcumulusPhp.Models.html)
 ### Adding an invoice
 By far the most difficult task this package does is adding an invoice to Acumulus. I've tried to create this as easy as possible, but the call being made is pretty complex. 
 One thing to note is that Acumulus looks at the customer emailadress as being the unique identifier of a customer. So if a customer doesn't have an email yet, this package will automatically create a unique emailaddress for that customer to prevent creating multiple customers.
