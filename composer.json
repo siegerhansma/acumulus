@@ -1,6 +1,8 @@
 {
     "name": "siegerhansma/acumulus-php",
     "description": "PHP wrapper for the Acumulus API",
+    "license": "MIT",
+    "keywords": ["acumulus","invoicing"],
     "authors": [
         {
             "name": "Sieger Hansma",
